@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="les-petits-plats.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="./css/style.css" />
+        <!-- Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Les petits plats</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo-wrapper">
+                <img src="./logo.svg" alt="Logo 'Les petits plats'" />
+            </div>
+            <!-- Search box -->
+            <div class="searchbox">
+                <!-- Search bar -->
+                <div id="searchRecipes" class="searchbox__searchbar">
+                    <input id="search" class="form-control bg-light-gray" type="text" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" aria-label="Search">
+                    <span class="search-icon material-icons material-icons-outlined">search</span>
+                </div>
+                <!-- Search bar tags -->
+                <div class="searchbox__tags">
+                </div>
+                <!-- Search filters -->
+                <div class="searchbox__filters dropdown">
+                    <div id="ingredients-filter" class="filter">
+                        <div class="filter-input">
+                            <input  class="bg-blue ingredients-filter" placeholder="Ingrédients">
+                            <span class="material-icons material-icons-outlined">keyboard_arrow_down</span>
+                        </div>
+                        <div class="filter-items bg-blue"></div>
+                    </div>
+                    <div id="appliances-filter" class="filter">
+                        <div class="filter-input">   
+                            <input  class="bg-green appliances-filter" placeholder="Appareil">
+                            <span class="material-icons material-icons-outlined">keyboard_arrow_down</span>
+                        </div>
+                        <div class="filter-items bg-green"></div>
+                    </div>
+                    <div id="utensils-filter" class="filter">
+                        <div class="filter-input">
+                            <input class="bg-red utensils-filter" placeholder="Ustensiles">
+                            <span class="material-icons material-icons-outlined">keyboard_arrow_down</span>
+                        </div>
+                        <div class="filter-items bg-red"></div>
+                    </div>
+                </div>
+                <!-- This is the container where the recipes will be displayed -->
+                <div id="match-list" class="searchbox__results-container">
+                </div>
+                <!-- End of recipes container -->
+            </div>
+            <!-- End of searchbox -->
+        </div>
+        <!-- My scripts -->
+         <script src="data/recipes.json" type="module"></script>
+        <script src="js/main.js" type="module"></script>
+        <script src="js/dropdowns.js" type="application/js"></script>
+    </body>
+</html>
