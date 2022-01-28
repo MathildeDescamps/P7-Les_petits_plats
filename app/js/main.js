@@ -20,47 +20,15 @@ const matchingIngredients = [];
 const matchingUtensils = [];
 const matchingAppliances = [];
 
-//FONCTION : filtrer les recettes en fonction de l'input et des filtres appliqués 
+
+// FONCTION : filtrer les recettes en fonction de l'input et des filtres appliqués 
 const searchRecipes =  input => {
 
     //Expression régulière
     const regex = new RegExp(`${input}`, 'gi');
 
-    /*recipes.forEach((recipe) => {
 
-        ingredientsInput.addEventListener('input', () => searchIngredients(ingredientsInput.value));
-        const searchIngredients = input => {
-            //Expression régulière
-            const regex = new RegExp(`${input}`, 'gi');
-            recipe.ingredients.forEach(({ingredient}) => {
-                if (regex.test(ingredient)) {
-                    console.log('');
-                }
-            })
-        }
-
-        //Pour chaque ustensile
-        recipe.utensils.forEach((utensil) => {
-            if(!matchingUtensils.includes(utensil)) {
-                matchingUtensils.push(utensil);
-            }
-            console.log('utensil : ',utensil);
-            //On ajoute l'ustensile à la liste des ustensiles, s'il n'y est pas déjà
-            let utensilFilter = document.createElement('span');
-            utensilFilter.classList.add('filter-item');
-            utensilFilter.innerHTML = utensil;
-            utensilsFilter.appendChild(utensilFilter);
-            console.log('utensil : ', utensilFilter); 
-        })
-        //On ajoute l'appareil utilisé à la liste des appareils, s'il n'y est pas déjà
-        if(!matchingAppliances.includes(recipe.appliance)) {
-            matchingAppliances.push(recipe.appliance);
-        }
-
-    })*/
-
-    //FILTRE PRINCIPAL : 
-
+    // FILTRE PRINCIPAL : 
     //On crée un tableau 'matches' qui va contenir les recettes filtrées
     let matches = recipes.filter(recipe => {
 
@@ -87,8 +55,7 @@ const searchRecipes =  input => {
         return recipeIsMatching;
 
     });
-
-    //S'il n'y a rien dans la barre de recherche, on affiche rien dans les résultats de recherche.
+    //S'il n'y a rien dans la barre de recherche :
     if(input.length === 0) {
         matches = [];
         matchList.innerHTML = '';
@@ -96,16 +63,44 @@ const searchRecipes =  input => {
         ingredientsFilter.innerHTML = '';
         appliancesAvailable = [];
         appliancesFilter.innerHTML = '';
+        tagsWrapper.innerHTML = '';
+        //On met tous les ingrédients/appareils/ustensiles dans les filtres additionnels
+        recipes.forEach((recipe) => {
+            recipe.ingredients.forEach(({ingredient}) => {
+                if(ingredientsAvailable.includes(ingredient) === false) {
+                    ingredientsAvailable.push(ingredient);
+                    let ingredientFilter = document.createElement('span');
+                    ingredientFilter.classList.add('filter-item');
+                    ingredientFilter.innerHTML = ingredient;
+                    ingredientsFilter.appendChild(ingredientFilter);
+                }
+            })
+            if (appliancesAvailable.includes(recipe.appliance) === false) {
+                appliancesAvailable.push(recipe.appliance);
+                let applianceFilter = document.createElement('span');
+                applianceFilter.classList.add('filter-item');
+                applianceFilter.innerHTML = recipe.appliance;
+                appliancesFilter.appendChild(applianceFilter);
+            }
+            recipe.utensils.forEach((utensil) => {
+                if (utensilsAvailable.includes(utensil) === false) {
+                    utensilsAvailable.push(utensil);
+                    let utensilFilter = document.createElement('span');
+                    utensilFilter.classList.add('filter-item');
+                    utensilFilter.innerHTML = utensil;
+                    utensilsFilter.appendChild(utensilFilter);
+                }
+            })
+        })
     }
-
     //On affiche les recettes filtrées
     outputHtml(matches);
+    //////////////////////////////
 
-    //FILTRES ADDITIONNELS 
 
+    // AFFICHER LES FILTRES ADDITIONNELS 
     matches.forEach((match) => {
-
-        //On affiche que les ingrédients se trouvant dans les recettes qui matchent : 
+        //On affiche que les ingrédients se trouvant dans les recettes qui matchent dans le dropdown : 
         match.ingredients.forEach(({ingredient}) => {
             //On ajoute l'ingrédient à la liste des ingrédients, s'il n'y est pas déjà
             if(ingredientsAvailable.includes(ingredient) === false) {
@@ -115,7 +110,6 @@ const searchRecipes =  input => {
                 ingredientFilter.innerHTML = ingredient;
                 ingredientsFilter.appendChild(ingredientFilter);
             }
-
         })
         //Idem pour les appareils
         if (appliancesAvailable.includes(match.appliance) === false) {
@@ -136,7 +130,11 @@ const searchRecipes =  input => {
             }
         })
     })
-    //Afficher les ingrédients non filtrés sous forme de tags
+    ////////////////////////////////////////////////////////
+
+
+    // AJOUT D'UN TAG SANS  RECHERCHE ADDITIONNELLE
+    // Ingrédients :
     let ingredientsAvailableDOM = document.querySelectorAll(".container .searchbox .searchbox__filters #ingredients-filter .filter-items .filter-item");
     Array.from(ingredientsAvailableDOM).forEach((ingredientAvailable, index) => {
         ingredientAvailable.addEventListener("click", function() {
@@ -164,8 +162,7 @@ const searchRecipes =  input => {
             }
         })
     });
-
-    //Afficher les appareils non filtrés sous forme de tags
+    // Appareils :
     let appliancesAvailableDOM = document.querySelectorAll(".container .searchbox .searchbox__filters #appliances-filter .filter-items .filter-item");
     Array.from(appliancesAvailableDOM).forEach((applianceAvailable, index) => {
         applianceAvailable.addEventListener("click", function() {
@@ -193,8 +190,7 @@ const searchRecipes =  input => {
             }
         })
     });
-
-    //Afficher les ustensiles non filtrés sous forme de tags
+    // Ustensiles :
     let utensilsAvailableDOM = document.querySelectorAll(".container .searchbox .searchbox__filters #utensils-filter .filter-items .filter-item");
     Array.from(utensilsAvailableDOM).forEach((utensilAvailable, index) => {
         utensilAvailable.addEventListener("click", function() {
@@ -222,8 +218,11 @@ const searchRecipes =  input => {
             }
         })
     });
+    /////////////////////////////////////////////////////////////////////////
 
-    //Recherche dans les ingrédients
+
+    // RECHERCHE DANS LES FILTRES ADDITIONNELS ET AJOUT D'UN TAG
+    // Ingrédients :
     ingredientsInput.addEventListener("input", function() {
         let input = ingredientsInput.value;
         const regex = new RegExp(`${input}`, 'gi');
@@ -233,7 +232,6 @@ const searchRecipes =  input => {
             let filteredIngredients = ingredientsAvailable.filter(ingredient => {
                 if( regex.test(ingredient) ) {
                     ingredientMatches = true;
-                    console.log('ingredient matches : ', ingredient);
                     let ingredientFilter = document.createElement('span');
                     ingredientFilter.classList.add('filter-item');
                     ingredientFilter.innerHTML = ingredient;
@@ -243,10 +241,10 @@ const searchRecipes =  input => {
                 }
                 return ingredientMatches;
             })
-            console.log('ingredients filtered : ', filteredIngredients);
         }
         let newIngredients = Array.from(document.querySelectorAll("#ingredients-filter .filter-items .filter-item"));
         newIngredients.forEach((newIngredient, index) => {
+            //Au click sur un ingrédient, celui-ci est ajouté aux tags :
             newIngredient.addEventListener("click", function() {
                 let tagDOM =  `.searchbox__tags .ingredient#tag-${index.toString()}`;
                 if (!document.querySelector(tagDOM)) {
@@ -269,12 +267,24 @@ const searchRecipes =  input => {
                     icon.classList.add('material-icons-outlined');
                     icon.innerHTML = 'highlight_off';
                     tag.appendChild(icon);
+                    //On refiltre les recettes, elles doivent correspondre au tag ajouté
+                    let doubleMatches = matches.filter(match => {
+                        let isMatching = false;
+                        match.ingredients.forEach(({ingredient}) => {
+                            console.log('ingredient ' ,ingredient);
+                            console.log('new ingredient ', newIngredient.textContent);
+                            if(ingredient === newIngredient.textContent) {
+                                isMatching = true;
+                            }
+                        })
+                        return isMatching;
+                    })
+                    console.log("double matches : ", doubleMatches);
                 }
             })
         })
     });
-
-    //Recherche dans les appareils
+    // Appareils :
     appliancesInput.addEventListener("input", function () {
         let input = appliancesInput.value;
         const regex = new RegExp(`${input}`, 'gi');
@@ -294,7 +304,6 @@ const searchRecipes =  input => {
                 }
                 return applianceMatches;
             })
-            console.log('appliances filtered : ', filteredAppliances);
         }
         let newAppliances = Array.from(document.querySelectorAll("#appliances-filter .filter-items .filter-item"));
         newAppliances.forEach((newAppliance, index) => {
@@ -324,7 +333,7 @@ const searchRecipes =  input => {
             })
         })
     })
-    //Recherche dans les ustensiles
+    // Ustensiles :
     utensilsInput.addEventListener("input", function () {
         let input = utensilsInput.value;
         const regex = new RegExp(`${input}`, 'gi');
@@ -344,7 +353,6 @@ const searchRecipes =  input => {
                 }
                 return utensilsMatches;
             })
-            console.log('utensils filtered : ', filteredUtensils);
         }
         let newUtensils = Array.from(document.querySelectorAll("#utensils-filter .filter-items .filter-item"));
         newUtensils.forEach((newUtensil, index) => {
@@ -374,17 +382,21 @@ const searchRecipes =  input => {
             })
         })
     })
-}
+    //////////////////////////////////////////////////////////////////
 
-//FONCTION : Afficher les recettes filtrées sur la page
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// FONCTION : Afficher les recettes filtrées sur la page
 const outputHtml = matches => {
     if(matches.length > 0) {
         //Pour chaque recette match, on affiche une card Bootstrap
         const html = matches.map(match => `
             <div class="card">
                 <div class="card-inner bg-light-gray">
-                    <div class="card-img-top">
-                        <img src="https://res.cloudinary.com/tf-lab/image/upload/restaurant/c7ab19e8-630a-4f43-9edf-50389e9cfb93/e1c10c3e-d701-4795-8712-8590aaffe590.jpg" />
+                    <div class="card-img-top" style="background: url('https://fakeimg.pl/800x400/C6BEBE/?text=Yummy')">
                     </div>
                     <div class="card-body">
                         <div>
@@ -404,6 +416,18 @@ const outputHtml = matches => {
         matchList.innerHTML = html;
     }
 }
+///////////////////////////////////////////////////////////////////
 
 //On lance la recherche dès que quelqu'un écrit dans la barre de recherche
-search.addEventListener('input', () => searchRecipes(search.value));
+search.addEventListener('input', (e) => {
+    if(e.target.value === '' && additionnalFilters) {
+        searchRecipesWithoutSearchBar();
+    }
+    //Si l'utilisateur a tapé quelque chose dans la barre de recherche
+    else searchRecipes(search.value);
+})
+
+if(search.value === '') {
+    console.log("Démarrage");
+    //Mettre des eventListenners sur les 3 filtres additionnels
+}

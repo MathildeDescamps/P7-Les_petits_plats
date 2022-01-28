@@ -74,6 +74,7 @@
                 border-radius: 5px;
                 padding-inline: 10px;
                 margin-right: 10px;
+                margin-bottom: 10px;
                .tag-text {
                     font-size: 14px;
                 }
@@ -170,11 +171,11 @@
                     }
                 }
                 .card-img-top {
-                    img {
-                        max-width: 100%;
-                        border-top-right-radius: 5px;
-                        border-top-left-radius: 5px;
-                    }
+                    height: 180px;
+                    background-position: center!important;
+                    background-size: cover!important;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
                 }
             }
         }
