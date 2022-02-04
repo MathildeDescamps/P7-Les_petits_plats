@@ -464,7 +464,7 @@ var _recipesJson = require("../data/recipes.json");
 var _recipesJsonDefault = parcelHelpers.interopDefault(_recipesJson);
 //Éléments du DOM
 const search = document.getElementById('search');
-const matchList = document.getElementById('match-list');
+const matchList = document.getElementById('results');
 const ingredientsFilter = document.querySelector('#ingredients-filter .filter-items');
 const utensilsFilter = document.querySelector('#utensils-filter .filter-items');
 const appliancesFilter = document.querySelector('#appliances-filter .filter-items');
@@ -660,14 +660,14 @@ const searchRecipes = (input)=>{
     });
     /////////////////////////////////////////////////////////////////////////
     // RECHERCHE DANS LES FILTRES ADDITIONNELS ET AJOUT D'UN TAG
-    // Ingrédients :
-    ingredientsInput.addEventListener("input", function() {
+    const searchInIngredientsFilter = (ingredientsToFilter)=>{
         let input = ingredientsInput.value;
+        console.log("input : ", input);
         const regex = new RegExp(`${input}`, 'gi');
         ingredientsFilter.innerHTML = '';
         //On tri dans les ingrédients du dropdown
         if (input.length >= 3) {
-            let filteredIngredients = ingredientsAvailable.filter((ingredient)=>{
+            let filteredIngredients = ingredientsToFilter.filter((ingredient)=>{
                 if (regex.test(ingredient)) {
                     ingredientMatches = true;
                     let ingredientFilter = document.createElement('span');
@@ -717,7 +717,7 @@ const searchRecipes = (input)=>{
                 }
             });
         });
-    });
+    };
     // Appareils :
     appliancesInput.addEventListener("input", function() {
         let input = appliancesInput.value;
@@ -812,7 +812,8 @@ const searchRecipes = (input)=>{
             });
         });
     });
-//////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    if (input.length !== 0) ingredientsInput.addEventListener("input", searchInIngredientsFilter(ingredientsAvailable));
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // FONCTION : Afficher les recettes filtrées sur la page
@@ -846,8 +847,11 @@ const outputHtml = (matches)=>{
 ///////////////////////////////////////////////////////////////////
 //On lance la recherche dès que quelqu'un écrit dans la barre de recherche
 search.addEventListener('input', (e)=>{
-    if (e.target.value === '' && additionnalFilters) searchRecipesWithoutSearchBar();
-    else searchRecipes(search.value);
+    /*  if(e.target.value === '' && additionnalFilters) {
+        searchRecipesWithoutsearchbar();
+    }
+    //Si l'utilisateur a tapé quelque chose dans la barre de recherche
+    else  */ searchRecipes(search.value);
 });
 if (search.value === '') console.log("Démarrage");
 
