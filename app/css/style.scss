@@ -87,6 +87,9 @@
                     }
                     .tag-icon {
                         font-size: 16px;
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
@@ -103,7 +106,7 @@
                     display: flex;
                     align-items: center;
                     input {
-                        width: fit-content;
+                        width: 100%;
                         padding: 20px;
                         border-radius: 5px;
                         border: none;
