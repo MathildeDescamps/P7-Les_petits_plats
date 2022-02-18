@@ -18,6 +18,7 @@ let utensilTagsWrapper = document.querySelector('.searchbox__tags .utensil-tags'
 let taggedIngredients = [];
 let taggedAppliances = [];
 let taggedUtensils = [];
+let crosses;
 //La section où l'on va afficher les résultats de recherche
 const matchList = document.getElementById('results');
 
@@ -51,9 +52,9 @@ const displayResults = matches => {
                 </div>
             </div>
         `).join(' ');
-        matchList.innerHTML = html;
+        matchList.innerText = html;
     } else {
-        matchList.innerHTML = '';
+        matchList.innerText = '';
     }
 }
 // 0 : Pas de recherche, mais on peut ajouter et supprimer des tags
@@ -65,7 +66,7 @@ const noSearchButTags = () => {
                 ingredientsInFilter.push(ingredient);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = ingredient;
+                filterItem.innerText = ingredient;
                 ingredientsList.appendChild(filterItem);
             }
         })
@@ -73,7 +74,7 @@ const noSearchButTags = () => {
             appliancesInFilter.push(recipe.appliance);
             let filterItem = document.createElement('span');
             filterItem.classList.add('filter-item');
-            filterItem.innerHTML = recipe.appliance;
+            filterItem.innerText = recipe.appliance;
             appliancesList.appendChild(filterItem);
         }
         recipe.utensils.forEach((utensil) => {
@@ -81,7 +82,7 @@ const noSearchButTags = () => {
                 utensilsInFilter.push(utensil);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = utensil;
+                filterItem.innerText = utensil;
                 utensilsList.appendChild(filterItem);
             }
         })
@@ -141,9 +142,17 @@ const filterWithTags = (recipesToFilter) => {
     });
 }
 //Supprimer un tag
-const deleteTag = (e, recipesToFilter) => {
-    console.log("Tag a supprimer : ", e.target.parentElement);
-    e.target.parentElement.remove();
+const deleteTag = (recipesToFilter) => {
+    //On écoute si l'utilisateur veut supprimer un tag
+    crosses = Array.from(document.querySelectorAll(".searchbox .searchbox__tags .tags-wrapper .tag .tag-icon"));
+    crosses.forEach((cross) => {
+        cross.addEventListener('click', function(e){
+            e.target.parentElement.remove();
+            filterWithTags(recipesToFilter);
+        });
+    });
+    
+    //e.target.parentElement.remove();
     filterWithTags(recipesToFilter);
 }
 //Ajouter un tag
@@ -177,7 +186,8 @@ const addTag = (recipesToFilter, filterCategory, text, index) => {
     icon.classList.add('material-icons-outlined');
     icon.innerText = 'highlight_off';
     tag.appendChild(icon);
-    icon.addEventListener("click", deleteTag(event, recipesToFilter));
+
+    deleteTag(recipesToFilter);
 
     //On refiltre les résultats selon le tag ajouté
     filterWithTags(recipesToFilter);
@@ -194,9 +204,9 @@ const search = (e) => {
         ingredientsInFilter = [];
         appliancesInFilter = [];
         utensilsInFilter = [];
-        ingredientsList.innerHTML = '';
-        appliancesList.innerHTML = '';
-        utensilsList.innerHTML = '';
+        ingredientsList.innerText = '';
+        appliancesList.innerText = '';
+        utensilsList.innerText = '';
 
         let input = searchbarInput.value;
 
@@ -234,7 +244,7 @@ const search = (e) => {
                     ingredientsInFilter.push(ingredient);
                     let filterItem = document.createElement('span');
                     filterItem.classList.add('filter-item');
-                    filterItem.innerHTML = ingredient;
+                    filterItem.innerText = ingredient;
                     ingredientsList.appendChild(filterItem);
                 }
             })
@@ -242,7 +252,7 @@ const search = (e) => {
                 appliancesInFilter.push(recipe.appliance);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = recipe.appliance;
+                filterItem.innerText = recipe.appliance;
                 appliancesList.appendChild(filterItem);
             }
             recipe.utensils.forEach((utensil) => {
@@ -250,7 +260,7 @@ const search = (e) => {
                     utensilsInFilter.push(utensil);
                     let filterItem = document.createElement('span');
                     filterItem.classList.add('filter-item');
-                    filterItem.innerHTML = utensil;
+                    filterItem.innerText = utensil;
                     utensilsList.appendChild(filterItem);
                 }
             })

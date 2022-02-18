@@ -476,6 +476,11 @@ let utensilsList = document.querySelector(".searchbox #utensils-filter .filter-i
 let ingredientTagsWrapper = document.querySelector('.searchbox__tags .ingredient-tags');
 let applianceTagsWrapper = document.querySelector('.searchbox__tags .appliance-tags');
 let utensilTagsWrapper = document.querySelector('.searchbox__tags .utensil-tags');
+//Les tags
+let taggedIngredients = [];
+let taggedAppliances = [];
+let taggedUtensils = [];
+let crosses;
 //La section où l'on va afficher les résultats de recherche
 const matchList = document.getElementById('results');
 ////        VARIABLES       ////
@@ -508,10 +513,10 @@ const displayResults = (matches)=>{
             </div>
         `
         ).join(' ');
-        matchList.innerHTML = html;
-    } else matchList.innerHTML = '';
+        matchList.innerText = html;
+    } else matchList.innerText = '';
 };
-//0 : Pas de recherche, mais on peut ajouter ou supprimer des tags
+// 0 : Pas de recherche, mais on peut ajouter et supprimer des tags
 const noSearchButTags = ()=>{
     //On met tous les ingrédients/appareils/ustensiles dans les filtres
     _recipesJsonDefault.default.forEach((recipe)=>{
@@ -520,7 +525,7 @@ const noSearchButTags = ()=>{
                 ingredientsInFilter.push(ingredient);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = ingredient;
+                filterItem.innerText = ingredient;
                 ingredientsList.appendChild(filterItem);
             }
         });
@@ -528,7 +533,7 @@ const noSearchButTags = ()=>{
             appliancesInFilter.push(recipe.appliance);
             let filterItem = document.createElement('span');
             filterItem.classList.add('filter-item');
-            filterItem.innerHTML = recipe.appliance;
+            filterItem.innerText = recipe.appliance;
             appliancesList.appendChild(filterItem);
         }
         recipe.utensils.forEach((utensil)=>{
@@ -536,7 +541,7 @@ const noSearchButTags = ()=>{
                 utensilsInFilter.push(utensil);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = utensil;
+                filterItem.innerText = utensil;
                 utensilsList.appendChild(filterItem);
             }
         });
@@ -572,15 +577,36 @@ const noSearchButTags = ()=>{
         });
     });
 };
+const filterWithTags = (recipesToFilter)=>{
+    //On récupère les tags
+    taggedIngredients = Array.from(document.querySelectorAll('.searchbox__tags .ingredient-tags .tag .tag-text'));
+    taggedAppliances = Array.from(document.querySelectorAll('.searchbox__tags .appliance-tags .tag .tag-text'));
+    taggedUtensils = Array.from(document.querySelectorAll('.searchbox__tags .utensil-tags .tag .tag-text'));
+    console.log("1) ingrédients :");
+    taggedIngredients.forEach((taggedIngredient)=>{
+        console.log(" -  ", taggedIngredient.innerText);
+    });
+    console.log("2) appareils :");
+    taggedAppliances.forEach((taggedAppliance)=>{
+        console.log(" -  ", taggedAppliance.innerText);
+    });
+    console.log("3) ustensiles :");
+    taggedUtensils.forEach((taggedUtensil)=>{
+        console.log(" -  ", taggedUtensil.innerText);
+    });
+};
 //Supprimer un tag
-const deleteTag = (e)=>{
-    let displayedTags = Array.from(document.querySelectorAll('.searchbox__tags .tags-wrapper .tag'));
-    console.log("Tags affichés : ", displayedTags);
-    console.log("Tag a supprimer : ", e.target.parentElement);
-    let tagToDelete = e.target.parentElement;
-    let filterElementToRemove = document.querySelector(".tag#" + tagToDelete.id + " .tag-text");
-    console.log(filterElementToRemove.innerText);
-    e.target.parentElement.remove();
+const deleteTag = (recipesToFilter)=>{
+    //On écoute si l'utilisateur veut supprimer un tag
+    crosses = Array.from(document.querySelectorAll(".searchbox .searchbox__tags .tags-wrapper .tag .tag-icon"));
+    crosses.forEach((cross)=>{
+        cross.addEventListener('click', function(e) {
+            e.target.parentElement.remove();
+            filterWithTags(recipesToFilter);
+        });
+    });
+    //e.target.parentElement.remove();
+    filterWithTags(recipesToFilter);
 };
 //Ajouter un tag
 const addTag = (recipesToFilter, filterCategory, text, index)=>{
@@ -613,15 +639,13 @@ const addTag = (recipesToFilter, filterCategory, text, index)=>{
     icon.classList.add('material-icons-outlined');
     icon.innerText = 'highlight_off';
     tag.appendChild(icon);
+    deleteTag(recipesToFilter);
     //On refiltre les résultats selon le tag ajouté
-    let displayedTags = Array.from(document.querySelectorAll(".searchbox__tags .tag"));
-    displayedTags.forEach((displayedTag)=>{
-        let tagIcon = document.querySelector(".searchbox__tags #" + displayedTag.id + " span.tag-icon");
-        tagIcon.addEventListener('click', deleteTag);
-    });
+    filterWithTags(recipesToFilter);
 };
+//Au lancement de l'appli, on est dans le cas 0, donc on lance la fonction correspondante
 noSearchButTags();
-//rechercher
+//A partir du moment où l'utilisateur tape quelque chose dans un des inputs, on passe dans le cas 1, 2 ou 3
 const search = (e)=>{
     // 1 : Recherche dans la barre de recherche uniquement
     const searchWithSearchbarOnly = ()=>{
@@ -630,9 +654,9 @@ const search = (e)=>{
         ingredientsInFilter = [];
         appliancesInFilter = [];
         utensilsInFilter = [];
-        ingredientsList.innerHTML = '';
-        appliancesList.innerHTML = '';
-        utensilsList.innerHTML = '';
+        ingredientsList.innerText = '';
+        appliancesList.innerText = '';
+        utensilsList.innerText = '';
         let input = searchbarInput.value;
         //Expression régulière
         const regex = new RegExp(`${input}`, 'gi');
@@ -655,7 +679,7 @@ const search = (e)=>{
                     ingredientsInFilter.push(ingredient);
                     let filterItem = document.createElement('span');
                     filterItem.classList.add('filter-item');
-                    filterItem.innerHTML = ingredient;
+                    filterItem.innerText = ingredient;
                     ingredientsList.appendChild(filterItem);
                 }
             });
@@ -663,7 +687,7 @@ const search = (e)=>{
                 appliancesInFilter.push(recipe.appliance);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerHTML = recipe.appliance;
+                filterItem.innerText = recipe.appliance;
                 appliancesList.appendChild(filterItem);
             }
             recipe.utensils.forEach((utensil)=>{
@@ -671,7 +695,7 @@ const search = (e)=>{
                     utensilsInFilter.push(utensil);
                     let filterItem = document.createElement('span');
                     filterItem.classList.add('filter-item');
-                    filterItem.innerHTML = utensil;
+                    filterItem.innerText = utensil;
                     utensilsList.appendChild(filterItem);
                 }
             });
@@ -731,7 +755,7 @@ const search = (e)=>{
         });
     };
     //On appelle une fonction différente pour chaque cas d'utilisation
-    // 0 : Tous les inputs sont vides
+    // 0 : L'utilisateur efface tous les inputs
     if (ingredientsFilterInput.value === '' && appliancesFilterInput.value === '' && utensilsFilterInput.value === '' && searchbarInput.value === '') noSearchButTags();
     else if (ingredientsFilterInput.value === '' && appliancesFilterInput.value === '' && utensilsFilterInput.value === '' && searchbarInput.value !== '') {
         if (searchbarInput.value.length > 2) searchWithSearchbarOnly();
