@@ -3,15 +3,19 @@ import addTag from "../tags/addTag";
 //FONCTION : On met tous les ingrédients/appareils/ustensiles dans les filtres
 const fillTheFilters = (recipes) => {
 
+    //On récupère le contenu des filtres
+    let ingredientsList = document.querySelector(".searchbox #ingredients-filter .filter-items");
+    let appliancesList = document.querySelector(".searchbox #appliances-filter .filter-items");
+    let utensilsList = document.querySelector(".searchbox #utensils-filter .filter-items");
+
     //Tableaux contenant les items dans les filtres
     let ingredientsInFilter = [];
     let appliancesInFilter = [];
     let utensilsInFilter = [];
 
-    //Le contenu des filtres
-    let ingredientsList = document.querySelector(".searchbox #ingredients-filter .filter-items");
-    let appliancesList = document.querySelector(".searchbox #appliances-filter .filter-items");
-    let utensilsList = document.querySelector(".searchbox #utensils-filter .filter-items");
+    ingredientsList.innerHTML = "";
+    appliancesList.innerHTML = "";
+    utensilsList.innerHTML = "";
 
     //On crée les éléments HTML
     recipes.forEach((recipe) => {
@@ -45,12 +49,12 @@ const fillTheFilters = (recipes) => {
         })
     })
 
-    //On ajoute sur chaque, un écouteur d'évènement pour réagir au click
-    let ingredientsInFilterDOM = document.querySelectorAll(".searchbox__filters #ingredients-filter .filter-items .filter-item");
-    let appliancesInFilterDOM = document.querySelectorAll(".searchbox__filters #appliances-filter .filter-items .filter-item");
-    let utensilsInFilterDOM = document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item");
+    //On récupère le contenu HTML des filtres
+    let ingredientsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #ingredients-filter .filter-items .filter-item"));
+    let appliancesInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #appliances-filter .filter-items .filter-item"));
+    let utensilsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item"));
     
-//Pour les tags ingrédient
+    //Pour les tags ingrédient
     ingredientsInFilterDOM.forEach((ingredientDOM, index) => {
         ingredientDOM.addEventListener('click', function () {
             let tagDOM =  `.searchbox__tags .ingredient#tag-${index.toString()}`;
@@ -60,7 +64,6 @@ const fillTheFilters = (recipes) => {
             } else return;
         })
     })
-
     //Pour les tags appareil
     appliancesInFilterDOM.forEach((applianceDOM, index) => {
         applianceDOM.addEventListener('click', function() {
@@ -70,7 +73,6 @@ const fillTheFilters = (recipes) => {
             }
         })
     })
-
     //Pour les tags ustensile
     utensilsInFilterDOM.forEach((utensilDOM, index) => {
         utensilDOM.addEventListener('click', function() {

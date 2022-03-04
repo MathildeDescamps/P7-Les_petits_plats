@@ -1,3 +1,5 @@
+import fillTheFilters from "../filters/fillTheFilters";
+
 //Filtrer les recettes avec les tags
 const filterWithTags = (recipesToFilter) => {
 
@@ -46,7 +48,6 @@ const filterWithTags = (recipesToFilter) => {
 
         //S'il y a au moins 1 tag ingrédient, on vérifie que cet (ou ces) ingrédient(s) est (ou sont) dans la recette
         if(taggedIngredients.length > 0) {
-            console.log(taggedIngredients);
             taggedIngredients.forEach((taggedIngredient) => {
                 if(ingredientsInTheRecipe.includes(taggedIngredient)){
                     console.log("tagged ingredient found in recipe : ", ingredientsInTheRecipe);
@@ -95,7 +96,7 @@ const filterWithTags = (recipesToFilter) => {
     });
 
     console.log("inside filterWithTags, recipesToDisplay = ", recipesToDisplay);
-    return recipesToDisplay;
+    fillTheFilters(recipesToDisplay);
 
 };
 
