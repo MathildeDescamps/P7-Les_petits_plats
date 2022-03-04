@@ -1,6 +1,5 @@
 import search from '../index';
 import deleteTag from './deleteTag';
-import filterWithTags from './filterWithTags';
 
 //Les tags wrappers
 let ingredientTagsWrapper = document.querySelector('.searchbox__tags .ingredient-tags');
@@ -8,7 +7,7 @@ let applianceTagsWrapper = document.querySelector('.searchbox__tags .appliance-t
 let utensilTagsWrapper = document.querySelector('.searchbox__tags .utensil-tags');
 
 //Ajouter un tag
-const addTag = (recipesToFilter, filterCategory, text, index) => {
+const addTag = (filterCategory, text, index) => {
     //On crée le tag
     let tag = document.createElement('div');
     tag.classList.add('tag');
@@ -39,10 +38,8 @@ const addTag = (recipesToFilter, filterCategory, text, index) => {
     icon.innerText = 'highlight_off';
     tag.appendChild(icon);
 
+    deleteTag();
     search();
-    deleteTag(recipesToFilter);
 
-    //On refiltre les résultats selon le tag ajouté
-    filterWithTags(recipesToFilter);
 }
 export default addTag;
