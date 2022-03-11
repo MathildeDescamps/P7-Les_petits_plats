@@ -82,7 +82,6 @@ const fillTheFilters = (recipes) => {
             }
         })
     })
-
 };
 
 export default fillTheFilters; 

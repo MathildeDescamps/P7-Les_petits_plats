@@ -3,6 +3,9 @@ import displayResults from './results/displayResults';
 import fillTheFilters from './filters/fillTheFilters';
 import getFiltersElements from './filters/getFiltersElements';
 import filterWithTags from './tags/filterWithTags';
+import searchInIngredients from './filters/searchInIngredients';
+import searchInAppliances from './filters/searchInAppliances';
+import searchInUtensils from './filters/searchInUtensils';
 
 ////        DOM     ////
 //Tous les inputs
@@ -12,8 +15,11 @@ let appliancesFilterInput = document.querySelector(".searchbox #appliances-filte
 let utensilsFilterInput = document.querySelector(".searchbox #utensils-filter input.utensils-filter");
 //Le conteneur du message à afficher si 0 résultat
 let noResultText = document.querySelector(".no-result-message");
+//Les items dans les filtres
+let ingredientsInFilterDOM = [];
+let appliancesInFilterDOM = [];
+let utensilsInFilterDOM = [];
 ///////////////////////
-
 
 ////        LANCEMENT DE L'APPLICATION       ////
 let recipesToDisplay;
@@ -21,6 +27,19 @@ fillTheFilters(recipes);
 getFiltersElements();
 let matches = [];
 displayResults(matches);
+//Recherche dans les ingrédients/appareils/ustensils :
+ingredientsFilterInput.addEventListener("input", function(e) {
+    document.querySelector(".searchbox__filters #ingredients-filter .filter-items").style.display = "flex";
+    searchInIngredients(e.target.value);
+});
+appliancesFilterInput.addEventListener("input", function(e) {
+    document.querySelector(".searchbox__filters #appliances-filter .filter-items").style.display = "flex";
+    searchInAppliances(e.target.value);
+});
+utensilsFilterInput.addEventListener("input", function(e) {
+    document.querySelector(".searchbox__filters #utensils-filter .filter-items").style.display = "flex";
+    searchInUtensils(e.target.value);
+});
 ////////////////////////////////////////////////////////////
 
 
@@ -29,6 +48,7 @@ const search = (e) => {
     recipesToDisplay = [];
     let tagsAreUsed = false;
     let mainInput;
+
     // SI LA BARRE DE RECHERCHE EST UTILISÉE :
     if( (searchbarInput.value.length > 2) ) {
         mainInput = searchbarInput.value;
@@ -60,12 +80,10 @@ const search = (e) => {
     if(Array.from(document.querySelectorAll(".searchbox .searchbox__tags .tags-wrapper .tag")).length > 0){
         tagsAreUsed = true;
         if(recipesToDisplay.length > 0) {
-            console.log("Barre + tags");
-            filterWithTags(recipesToDisplay);
+            recipesToDisplay = filterWithTags(recipesToDisplay);
         }
         else {
-            console.log("Tags uniquement");
-            filterWithTags(recipes);
+            recipesToDisplay = filterWithTags(recipes);
         }
     }
 
@@ -115,18 +133,6 @@ const search = (e) => {
 //////        EVENT LISTENERS     ////
 //searchbar
 searchbarInput.addEventListener("input", (e) => {
-    search(e);
-});
-//ingredients filter
-ingredientsFilterInput.addEventListener("input", (e) => {
-    search(e);
-});
-//appliances filter
-appliancesFilterInput.addEventListener("input", (e) => {
-    search(e);
-});
-//utensils filter
-utensilsFilterInput.addEventListener("input", (e) => {
     search(e);
 });
 /////////////////////////////////////////

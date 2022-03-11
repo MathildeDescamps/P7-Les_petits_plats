@@ -11,4 +11,5 @@ const deleteTag = () => {
         });
     });
 }
+
 export default deleteTag;

@@ -97,6 +97,7 @@ const filterWithTags = (recipesToFilter) => {
 
     console.log("inside filterWithTags, recipesToDisplay = ", recipesToDisplay);
     fillTheFilters(recipesToDisplay);
+    return recipesToDisplay;
 
 };
 

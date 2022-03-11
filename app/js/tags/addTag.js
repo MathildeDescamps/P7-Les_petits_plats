@@ -5,6 +5,10 @@ import deleteTag from './deleteTag';
 let ingredientTagsWrapper = document.querySelector('.searchbox__tags .ingredient-tags');
 let applianceTagsWrapper = document.querySelector('.searchbox__tags .appliance-tags');
 let utensilTagsWrapper = document.querySelector('.searchbox__tags .utensil-tags');
+//Les inputs des filtres
+let ingredientsFilterInput = document.querySelector(".searchbox #ingredients-filter input.ingredients-filter");
+let appliancesFilterInput = document.querySelector(".searchbox #appliances-filter input.appliances-filter");
+let utensilsFilterInput = document.querySelector(".searchbox #utensils-filter input.utensils-filter");
 
 //Ajouter un tag
 const addTag = (filterCategory, text, index) => {
@@ -15,14 +19,17 @@ const addTag = (filterCategory, text, index) => {
         tag.classList.add('bg-blue');
         tag.classList.add('ingredient');
         ingredientTagsWrapper.appendChild(tag);
+        ingredientsFilterInput.value = "";
     } else if (filterCategory === 'utensil') {
         tag.classList.add('bg-red');
         tag.classList.add('utensil');
         utensilTagsWrapper.appendChild(tag);
+        utensilsFilterInput.value = "";
     } else if (filterCategory === 'appliance') {
         tag.classList.add('bg-green');
         tag.classList.add('appliance');
         applianceTagsWrapper.appendChild(tag);
+        appliancesFilterInput.value = "";
     }
     tag.setAttribute('id', 'tag-'+index.toString());
     //Le nom du tag
