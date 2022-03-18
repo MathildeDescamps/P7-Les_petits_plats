@@ -10,15 +10,16 @@ const filterWithTags = (recipesToFilter) => {
     let taggedIngredients = [];
     let taggedAppliances = [];
     let taggedUtensils = [];
-    taggedIngredients = taggedIngredientsDOM.map((taggedIngredient) => {
-        return taggedIngredient.innerText;
-    })
-    taggedAppliances = taggedAppliancesDOM.map((taggedAppliance) => {
-        return taggedAppliance.innerText;
-    })
-    taggedUtensils = taggedUtensilsDOM.map((taggedUtensil) => {
-        return taggedUtensil.innerText;
-    })
+
+    for(i=0; i<taggedIngredientsDOM.length; i++) {
+        taggedIngredients.push(taggedIngredientsDOM[i].innerText);
+    }
+    for(i=0; i<taggedAppliancesDOM.length; i++) {
+        taggedAppliances.push(taggedAppliancesDOM[i].innerText);
+    }
+    for(i=0; i<taggedUtensilsDOM.length; i++) {
+        taggedUtensils.push(taggedUtensilsDOM[i].innerText);
+    }
 
     //On filtres les recettes avec les tags
     recipesToDisplay = recipesToFilter.filter(recipe => {
@@ -35,16 +36,16 @@ const filterWithTags = (recipesToFilter) => {
         let utensilsInTheRecipe = [];
 
         //On récupère les ingrédient de la recette
-        ingredientsInTheRecipe = recipe.ingredients.map(({ingredient}) => {
-            return ingredient;
-        })
+        for(i=0; i<recipe.ingredients.length; i++) {
+            ingredientsInTheRecipe.push(recipe.ingredients[i].ingredient);
+        }
         //On récupère l'appareil de la recette
         appliancesInTheRecipe.push(recipe.appliance);
 
         //On récupère tous les ustensiles de la recette
-        utensilsInTheRecipe = recipe.utensils.map((utensil) => {
-            return utensil;
-        })
+        for(i=0; i<recipe.utensils.length; i++) {
+            utensilsInTheRecipe.push(recipe.utensils[i]);
+        }
 
         //S'il y a au moins 1 tag ingrédient, on vérifie que cet (ou ces) ingrédient(s) est (ou sont) dans la recette
         if(taggedIngredients.length > 0) {
