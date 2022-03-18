@@ -53,25 +53,26 @@ const search = (e) => {
     if( (searchbarInput.value.length > 2) ) {
         mainInput = searchbarInput.value;
         const regex = new RegExp(`${mainInput}`, 'gi');
-        //On ne garde que les recettes contenant le mainInput dans leur nom, description ou ingrédients.
-        recipesToDisplay = recipes.filter(recipe => {
+        for(i=0; i<recipes.length; i++) {
             let recipeIsMatching = false;
             //On recherche dans le nom de la recette,
-            if(regex.test(recipe.name)) {
+            if(regex.test(recipes[i].name)) {
                 recipeIsMatching = true;
             } 
             //la description,
-            else if (regex.test(recipe.description)) {
+            else if (regex.test(recipes[i].description)) {
                 recipeIsMatching = true;
             } 
             //et les ingrédients.
-            for(i=0; i<recipe.ingredients.length; i++) {
-                if(regex.test(recipe.ingredients[i].ingredient)) {
+            for(j=0; j<recipes[i].ingredients.length; j++) {
+                if(regex.test(recipes[i].ingredients[j].ingredient)) {
                     recipeIsMatching = true;
                 }
             }
-            return recipeIsMatching;
-        })
+            if(recipeIsMatching === true) {
+                recipesToDisplay.push(recipes[i]);
+            };
+        }
         //On met à jour les éléments dans les filtres
         fillTheFilters(recipesToDisplay);
     }

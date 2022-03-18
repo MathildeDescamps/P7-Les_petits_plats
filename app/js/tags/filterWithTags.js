@@ -10,6 +10,7 @@ const filterWithTags = (recipesToFilter) => {
     let taggedIngredients = [];
     let taggedAppliances = [];
     let taggedUtensils = [];
+    const recipesToDisplay = [];
 
     for(i=0; i<taggedIngredientsDOM.length; i++) {
         taggedIngredients.push(taggedIngredientsDOM[i].innerText);
@@ -22,8 +23,7 @@ const filterWithTags = (recipesToFilter) => {
     }
 
     //On filtres les recettes avec les tags
-    recipesToDisplay = recipesToFilter.filter(recipe => {
-
+    for(i=0; i<recipesToFilter.length; i++) {
         let recipeIsMatching = false;
         let ingredientIsMatching = false;
         let applianceIsMatching = false;
@@ -36,37 +36,37 @@ const filterWithTags = (recipesToFilter) => {
         let utensilsInTheRecipe = [];
 
         //On récupère les ingrédient de la recette
-        for(i=0; i<recipe.ingredients.length; i++) {
-            ingredientsInTheRecipe.push(recipe.ingredients[i].ingredient);
+        for(j=0; j<recipesToFilter[i].ingredients.length; j++) {
+            ingredientsInTheRecipe.push(recipesToFilter[i].ingredients[j].ingredient);
         }
         //On récupère l'appareil de la recette
-        appliancesInTheRecipe.push(recipe.appliance);
+        appliancesInTheRecipe.push(recipesToFilter[i].appliance);
 
         //On récupère tous les ustensiles de la recette
-        for(i=0; i<recipe.utensils.length; i++) {
-            utensilsInTheRecipe.push(recipe.utensils[i]);
+        for(j=0; j<recipesToFilter[i].utensils.length; j++) {
+            utensilsInTheRecipe.push(recipesToFilter[i].utensils[j]);
         }
 
         //S'il y a au moins 1 tag ingrédient, on vérifie que cet (ou ces) ingrédient(s) est (ou sont) dans la recette
         if(taggedIngredients.length > 0) {
-            for(i=0; i<taggedIngredients.length; i++) {
-                if(ingredientsInTheRecipe.includes(taggedIngredients[i])){
+            for(j=0; j<taggedIngredients.length; j++) {
+                if(ingredientsInTheRecipe.includes(taggedIngredients[j])){
                     ingredientsMatching++;
                 }
             }
         }
         //Idem pour les appareils
         if(taggedAppliances.length > 0){
-            for(i=0; i<taggedAppliances.length; i++) {
-                if(appliancesInTheRecipe.includes(taggedAppliances[i])) {
+            for(j=0; j<taggedAppliances.length; j++) {
+                if(appliancesInTheRecipe.includes(taggedAppliances[j])) {
                     appliancesMatching++;
                 }
             }
         }
         //Idem pour les ustensiles
         if(taggedUtensils.length > 0) {
-            for(i=0; i<taggedUtensils.length; i++) {
-                if(utensilsInTheRecipe.includes(taggedUtensils[i])){
+            for(j=0; j<taggedUtensils.length; j++) {
+                if(utensilsInTheRecipe.includes(taggedUtensils[j])){
                     utensilsMatching++;
                 }
             }
@@ -91,8 +91,10 @@ const filterWithTags = (recipesToFilter) => {
         if((ingredientIsMatching === true) && (applianceIsMatching === true) && (utensilIsMatching === true)) {
             recipeIsMatching = true;
         }
-        return recipeIsMatching;
-    });
+        if(recipeIsMatching === true) {
+            recipesToDisplay.push(recipesToFilter[i]);
+        }
+    }
 
     fillTheFilters(recipesToDisplay);
     return recipesToDisplay;
