@@ -18,36 +18,36 @@ const fillTheFilters = (recipes) => {
     utensilsList.innerHTML = "";
 
     //On crée les éléments HTML
-    recipes.forEach((recipe) => {
+    for(i=0; i<recipes.length; i++) {
         //ingrédients
-        recipe.ingredients.forEach(({ingredient}) => {
-            if(ingredientsInFilter.includes(ingredient) === false) {
-                ingredientsInFilter.push(ingredient);
+        for(j=0; j<recipes[i].ingredients.length; j++) {
+            if(ingredientsInFilter.includes(recipes[i].ingredients[j].ingredient) === false) {
+                ingredientsInFilter.push(recipes[i].ingredients[j].ingredient);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerText = ingredient;
+                filterItem.innerText = recipes[i].ingredients[j].ingredient;
                 ingredientsList.appendChild(filterItem);
             }
-        })
+        }
         //appareils
-        if (appliancesInFilter.includes(recipe.appliance) === false) {
-            appliancesInFilter.push(recipe.appliance);
+        if (appliancesInFilter.includes(recipes[i].appliance) === false) {
+            appliancesInFilter.push(recipes[i].appliance);
             let filterItem = document.createElement('span');
             filterItem.classList.add('filter-item');
-            filterItem.innerText = recipe.appliance;
+            filterItem.innerText = recipes[i].appliance;
             appliancesList.appendChild(filterItem);
         }
         //ustensiles
-        recipe.utensils.forEach((utensil) => {
-            if (utensilsInFilter.includes(utensil) === false) {
-                utensilsInFilter.push(utensil);
+        for(j=0; j<recipes[i].utensils.length; j++) {
+            if (utensilsInFilter.includes(recipes[i].utensils[j]) === false) {
+                utensilsInFilter.push(recipes[i].utensils[j]);
                 let filterItem = document.createElement('span');
                 filterItem.classList.add('filter-item');
-                filterItem.innerText = utensil;
+                filterItem.innerText = recipes[i].utensils[j];
                 utensilsList.appendChild(filterItem);
             }
-        })
-    })
+        }
+    }
 
     //On récupère le contenu HTML des filtres
     let ingredientsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #ingredients-filter .filter-items .filter-item"));
@@ -55,33 +55,33 @@ const fillTheFilters = (recipes) => {
     let utensilsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item"));
     
     //Pour les tags ingrédient
-    ingredientsInFilterDOM.forEach((ingredientDOM, index) => {
-        ingredientDOM.addEventListener('click', function () {
-            let tagDOM =  `.searchbox__tags .ingredient#tag-${index.toString()}`;
+    for(i=0; i<ingredientsInFilterDOM.length; i++) {
+        ingredientsInFilterDOM[i].addEventListener('click', function (e) {
+            let tagDOM =  `.searchbox__tags .ingredient#tag-${i.toString()}`;
             //Si l'ingrédient n'est pas encore affiché dans les tags
             if (!document.querySelector(tagDOM)) {
-                addTag('ingredient', ingredientDOM.innerText, index);
-            } else return;
+                addTag('ingredient', e.target.innerText, i);
+            }
         })
-    })
+    }
     //Pour les tags appareil
-    appliancesInFilterDOM.forEach((applianceDOM, index) => {
-        applianceDOM.addEventListener('click', function() {
-            let tagDOM =  `.searchbox__tags .appliance#tag-${index.toString()}`;
+    for(i=0; i<appliancesInFilterDOM.length; i++) {
+        appliancesInFilterDOM[i].addEventListener('click', function(e) {
+            let tagDOM =  `.searchbox__tags .appliance#tag-${i.toString()}`;
             if (!document.querySelector(tagDOM)) {
-                addTag('appliance', applianceDOM.innerText, index);
+                addTag('appliance', e.target.innerText, i);
             }
         })
-    })
+    }
     //Pour les tags ustensile
-    utensilsInFilterDOM.forEach((utensilDOM, index) => {
-        utensilDOM.addEventListener('click', function() {
-            let tagDOM =  `.searchbox__tags .utensil#tag-${index.toString()}`;
+    for(i=0; i<utensilsInFilterDOM.length; i++) {
+        utensilsInFilterDOM[i].addEventListener('click', function(e) {
+            let tagDOM =  `.searchbox__tags .utensil#tag-${i.toString()}`;
             if (!document.querySelector(tagDOM)) {
-                addTag('utensil', utensilDOM.innerText, index);
+                addTag('utensil', e.target.innerText, i);
             }
         })
-    })
+    }
 };
 
 export default fillTheFilters; 

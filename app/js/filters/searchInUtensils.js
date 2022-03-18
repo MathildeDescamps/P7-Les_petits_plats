@@ -3,13 +3,13 @@ import getFiltersElements from "./getFiltersElements";
 const searchInUtensils = (input)  => {
    const regex = new RegExp(`${input}`, 'gi');
     getFiltersElements();
-    utensilsInFilterDOM.forEach(utensil => {
-        if (regex.test(utensil.innerText) === false) {
-            utensil.style.display = "none";
+    for(i=0; i<utensilsInFilterDOM.length; i++) {
+        if (regex.test(utensilsInFilterDOM[i].innerText) === false) {
+            utensilsInFilterDOM[i].style.display = "none";
         } else {
-            utensil.style.display = "block";
+            utensilsInFilterDOM[i].style.display = "block";
         }
-    }); 
+    }
 }
 
 export default searchInUtensils;

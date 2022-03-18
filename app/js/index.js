@@ -65,11 +65,11 @@ const search = (e) => {
                 recipeIsMatching = true;
             } 
             //et les ingrédients.
-            recipe.ingredients.forEach(({ingredient}) => { 
-                if (regex.test(ingredient)) {
+            for(i=0; i<recipe.ingredients.length; i++) {
+                if(regex.test(recipe.ingredients[i].ingredient)) {
                     recipeIsMatching = true;
                 }
-            })
+            }
             return recipeIsMatching;
         })
         //On met à jour les éléments dans les filtres
@@ -85,24 +85,6 @@ const search = (e) => {
         else {
             recipesToDisplay = filterWithTags(recipes);
         }
-    }
-
-    // SI LA RECHERCHE DANS LE FILTRE INGRÉDIENT EST UTILISÉ : 
-    if (ingredientsFilterInput.value !== '' ) {
-        console.log("la recherche dans le filtre ingrédient est utilisée");
-        //searchWithFiltersOnly();
-    }
-
-    // SI LA RECHERCHE DANS LE FILTRE APPAREIL EST UTILISÉ : 
-    if (appliancesFilterInput.value !== '') {
-        console.log("la recherche dans le filtre appareil est utilisée");
-        //searchWithFiltersOnly();
-    }
-
-    // SI LA RECHERCHE DANS LE FILTRE USTENSILE EST UTILISÉ : 
-    if (utensilsFilterInput.value !== '') {
-        console.log("la recherche dans le filtre ustensile est utilisée");
-        //searchWithFiltersOnly();
     }
 
     // S'IL Y A DES RÉSULTATS, ON LES AFFICHE, SINON ON AFFICHE UN MESSAGE
@@ -121,10 +103,7 @@ const search = (e) => {
         let matches = [];
         displayResults(matches);
         noResultText.innerHTML = "";
-        console.log("Tous les inputs sont vides.");
     }
-
-    console.log("recipes to display : ", recipesToDisplay);
 
 }
 ///////////////////////////////////////

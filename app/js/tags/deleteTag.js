@@ -4,12 +4,12 @@ import search from "../index";
 const deleteTag = () => {
     //On écoute si l'utilisateur veut supprimer un tag
     crosses = Array.from(document.querySelectorAll(".searchbox .searchbox__tags .tags-wrapper .tag .tag-icon"));
-    crosses.forEach((cross) => {
-        cross.addEventListener('click', function(e){
+    for(i=0; i<crosses.length; i++) {
+        crosses[i].addEventListener('click', function(e){
             e.target.parentElement.remove();
             search();
         });
-    });
+    }
 }
 
 export default deleteTag;

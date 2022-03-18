@@ -48,33 +48,31 @@ const filterWithTags = (recipesToFilter) => {
 
         //S'il y a au moins 1 tag ingrédient, on vérifie que cet (ou ces) ingrédient(s) est (ou sont) dans la recette
         if(taggedIngredients.length > 0) {
-            taggedIngredients.forEach((taggedIngredient) => {
-                if(ingredientsInTheRecipe.includes(taggedIngredient)){
-                    console.log("tagged ingredient found in recipe : ", ingredientsInTheRecipe);
+            for(i=0; i<taggedIngredients.length; i++) {
+                if(ingredientsInTheRecipe.includes(taggedIngredients[i])){
                     ingredientsMatching++;
                 }
-            })
+            }
         }
         //Idem pour les appareils
         if(taggedAppliances.length > 0){
-            taggedAppliances.forEach((taggedAppliance) => {
-                if(appliancesInTheRecipe.includes(taggedAppliance)) {
+            for(i=0; i<taggedAppliances.length; i++) {
+                if(appliancesInTheRecipe.includes(taggedAppliances[i])) {
                     appliancesMatching++;
                 }
-            })
+            }
         }
         //Idem pour les ustensiles
         if(taggedUtensils.length > 0) {
-            taggedUtensils.forEach((taggedUtensil) => {
-                if(utensilsInTheRecipe.includes(taggedUtensil)){
+            for(i=0; i<taggedUtensils.length; i++) {
+                if(utensilsInTheRecipe.includes(taggedUtensils[i])){
                     utensilsMatching++;
                 }
-            })
+            }
         }
 
         //Est-ce que la recette contient tous les ingrédients tagués ?
         if(ingredientsMatching === taggedIngredients.length) {
-            console.log(ingredientsMatching, taggedIngredients.length);
             ingredientIsMatching = true;
         }
         //Est-ce que la recette contient l'un des appareils tagués ?
@@ -95,7 +93,6 @@ const filterWithTags = (recipesToFilter) => {
         return recipeIsMatching;
     });
 
-    console.log("inside filterWithTags, recipesToDisplay = ", recipesToDisplay);
     fillTheFilters(recipesToDisplay);
     return recipesToDisplay;
 
