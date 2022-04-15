@@ -50,7 +50,6 @@ const filterWithTags = (recipesToFilter) => {
         if(taggedIngredients.length > 0) {
             taggedIngredients.forEach((taggedIngredient) => {
                 if(ingredientsInTheRecipe.includes(taggedIngredient)){
-                    console.log("tagged ingredient found in recipe : ", ingredientsInTheRecipe);
                     ingredientsMatching++;
                 }
             })
@@ -74,7 +73,6 @@ const filterWithTags = (recipesToFilter) => {
 
         //Est-ce que la recette contient tous les ingrédients tagués ?
         if(ingredientsMatching === taggedIngredients.length) {
-            console.log(ingredientsMatching, taggedIngredients.length);
             ingredientIsMatching = true;
         }
         //Est-ce que la recette contient l'un des appareils tagués ?
@@ -95,7 +93,6 @@ const filterWithTags = (recipesToFilter) => {
         return recipeIsMatching;
     });
 
-    console.log("inside filterWithTags, recipesToDisplay = ", recipesToDisplay);
     fillTheFilters(recipesToDisplay);
     return recipesToDisplay;
 

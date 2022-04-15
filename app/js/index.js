@@ -1,4 +1,5 @@
 import recipes from '../data/recipes.json';
+import dropdowns from './filters/dropdowns';
 import displayResults from './results/displayResults';
 import fillTheFilters from './filters/fillTheFilters';
 import getFiltersElements from './filters/getFiltersElements';
@@ -87,24 +88,6 @@ const search = (e) => {
         }
     }
 
-    // SI LA RECHERCHE DANS LE FILTRE INGRÉDIENT EST UTILISÉ : 
-    if (ingredientsFilterInput.value !== '' ) {
-        console.log("la recherche dans le filtre ingrédient est utilisée");
-        //searchWithFiltersOnly();
-    }
-
-    // SI LA RECHERCHE DANS LE FILTRE APPAREIL EST UTILISÉ : 
-    if (appliancesFilterInput.value !== '') {
-        console.log("la recherche dans le filtre appareil est utilisée");
-        //searchWithFiltersOnly();
-    }
-
-    // SI LA RECHERCHE DANS LE FILTRE USTENSILE EST UTILISÉ : 
-    if (utensilsFilterInput.value !== '') {
-        console.log("la recherche dans le filtre ustensile est utilisée");
-        //searchWithFiltersOnly();
-    }
-
     // S'IL Y A DES RÉSULTATS, ON LES AFFICHE, SINON ON AFFICHE UN MESSAGE
     if(recipesToDisplay.length > 0) {
         noResultText.innerHTML = "";
@@ -121,11 +104,8 @@ const search = (e) => {
         let matches = [];
         displayResults(matches);
         noResultText.innerHTML = "";
-        console.log("Tous les inputs sont vides.");
     }
-
-    console.log("recipes to display : ", recipesToDisplay);
-
+    
 }
 ///////////////////////////////////////
 
@@ -136,5 +116,7 @@ searchbarInput.addEventListener("input", (e) => {
     search(e);
 });
 /////////////////////////////////////////
+
+dropdowns();
 
 export default search;

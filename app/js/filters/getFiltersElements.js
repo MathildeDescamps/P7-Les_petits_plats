@@ -15,9 +15,6 @@ const getFiltersElements = () => {
     utensilsInFilter = utensilsInFilterDOM.map((utensilInFilter) => {
         return utensilInFilter.innerText;
     });
-    /* console.log("Current ingredients : ", ingredientsInFilter);
-    console.log("Current appliances : ", appliancesInFilter);
-    console.log("Current utensils : ", utensilsInFilter); */
 }
 
 export default getFiltersElements;
