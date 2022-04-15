@@ -1,4 +1,5 @@
 import recipes from '../data/recipes.json';
+import dropdowns from './filters/dropdowns';
 import displayResults from './results/displayResults';
 import fillTheFilters from './filters/fillTheFilters';
 import getFiltersElements from './filters/getFiltersElements';
@@ -116,5 +117,7 @@ searchbarInput.addEventListener("input", (e) => {
     search(e);
 });
 /////////////////////////////////////////
+
+dropdowns();
 
 export default search;
