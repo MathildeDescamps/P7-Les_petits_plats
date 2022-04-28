@@ -1,7 +1,7 @@
 const dropdowns = () => {
     let dropdowns = document.querySelectorAll(".searchbox__filters .filter");
     const openOrCloseFilter = (e, childNodes) => {
-        for(l=0; l<childNodes.length; l++) {
+        for(let l=0; l<childNodes.length; l++) {
             if(childNodes[l].classList && childNodes[l].classList.contains('filter-items')){
                 if(childNodes[l].style.display === "" || childNodes[l].style.display === "none"){
                     childNodes[l].style.display = "flex";
@@ -22,7 +22,7 @@ const dropdowns = () => {
             //Si l'enfant à la classe 'filter-input'
             if(currentDropdown.childNodes[j].classList && currentDropdown.childNodes[j].classList.contains('filter-input')){
                 dropdownInput = currentDropdown.childNodes[j];
-                for(k=0; k<dropdownInput.childNodes.length; k++) {
+                for(let k=0; k<dropdownInput.childNodes.length; k++) {
                     if(dropdownInput.childNodes[k].classList && dropdownInput.childNodes[k].classList.contains('material-icons')){
                         dropdownToggle = dropdownInput.childNodes[k];
                         dropdownToggle.addEventListener('click', function(e) {

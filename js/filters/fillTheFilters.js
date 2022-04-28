@@ -50,9 +50,9 @@ const fillTheFilters = (recipes) => {
     }
 
     //On récupère le contenu HTML des filtres
-    let ingredientsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #ingredients-filter .filter-items .filter-item"));
-    let appliancesInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #appliances-filter .filter-items .filter-item"));
-    let utensilsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item"));
+    ingredientsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #ingredients-filter .filter-items .filter-item"));
+    appliancesInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #appliances-filter .filter-items .filter-item"));
+    utensilsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item"));
     
     //Pour les tags ingrédient
     for(let i=0; i<ingredientsInFilterDOM.length; i++) {
