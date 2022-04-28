@@ -12,18 +12,18 @@ const filterWithTags = (recipesToFilter) => {
     let taggedUtensils = [];
     const recipesToDisplay = [];
 
-    for(i=0; i<taggedIngredientsDOM.length; i++) {
+    for(let i=0; i<taggedIngredientsDOM.length; i++) {
         taggedIngredients.push(taggedIngredientsDOM[i].innerText);
     }
-    for(i=0; i<taggedAppliancesDOM.length; i++) {
+    for(let i=0; i<taggedAppliancesDOM.length; i++) {
         taggedAppliances.push(taggedAppliancesDOM[i].innerText);
     }
-    for(i=0; i<taggedUtensilsDOM.length; i++) {
+    for(let i=0; i<taggedUtensilsDOM.length; i++) {
         taggedUtensils.push(taggedUtensilsDOM[i].innerText);
     }
 
     //On filtres les recettes avec les tags
-    for(i=0; i<recipesToFilter.length; i++) {
+    for(let i=0; i<recipesToFilter.length; i++) {
         let recipeIsMatching = false;
         let ingredientIsMatching = false;
         let applianceIsMatching = false;
@@ -36,20 +36,20 @@ const filterWithTags = (recipesToFilter) => {
         let utensilsInTheRecipe = [];
 
         //On récupère les ingrédient de la recette
-        for(j=0; j<recipesToFilter[i].ingredients.length; j++) {
+        for(let j=0; j<recipesToFilter[i].ingredients.length; j++) {
             ingredientsInTheRecipe.push(recipesToFilter[i].ingredients[j].ingredient);
         }
         //On récupère l'appareil de la recette
         appliancesInTheRecipe.push(recipesToFilter[i].appliance);
 
         //On récupère tous les ustensiles de la recette
-        for(j=0; j<recipesToFilter[i].utensils.length; j++) {
+        for(let j=0; j<recipesToFilter[i].utensils.length; j++) {
             utensilsInTheRecipe.push(recipesToFilter[i].utensils[j]);
         }
 
         //S'il y a au moins 1 tag ingrédient, on vérifie que cet (ou ces) ingrédient(s) est (ou sont) dans la recette
         if(taggedIngredients.length > 0) {
-            for(j=0; j<taggedIngredients.length; j++) {
+            for(let j=0; j<taggedIngredients.length; j++) {
                 if(ingredientsInTheRecipe.includes(taggedIngredients[j])){
                     ingredientsMatching++;
                 }
@@ -57,7 +57,7 @@ const filterWithTags = (recipesToFilter) => {
         }
         //Idem pour les appareils
         if(taggedAppliances.length > 0){
-            for(j=0; j<taggedAppliances.length; j++) {
+            for(let j=0; j<taggedAppliances.length; j++) {
                 if(appliancesInTheRecipe.includes(taggedAppliances[j])) {
                     appliancesMatching++;
                 }
@@ -65,7 +65,7 @@ const filterWithTags = (recipesToFilter) => {
         }
         //Idem pour les ustensiles
         if(taggedUtensils.length > 0) {
-            for(j=0; j<taggedUtensils.length; j++) {
+            for(let j=0; j<taggedUtensils.length; j++) {
                 if(utensilsInTheRecipe.includes(taggedUtensils[j])){
                     utensilsMatching++;
                 }

@@ -18,9 +18,9 @@ const fillTheFilters = (recipes) => {
     utensilsList.innerHTML = "";
 
     //On crée les éléments HTML
-    for(i=0; i<recipes.length; i++) {
+    for(let i=0; i<recipes.length; i++) {
         //ingrédients
-        for(j=0; j<recipes[i].ingredients.length; j++) {
+        for(let j=0; j<recipes[i].ingredients.length; j++) {
             if(ingredientsInFilter.includes(recipes[i].ingredients[j].ingredient) === false) {
                 ingredientsInFilter.push(recipes[i].ingredients[j].ingredient);
                 let filterItem = document.createElement('span');
@@ -38,7 +38,7 @@ const fillTheFilters = (recipes) => {
             appliancesList.appendChild(filterItem);
         }
         //ustensiles
-        for(j=0; j<recipes[i].utensils.length; j++) {
+        for(let j=0; j<recipes[i].utensils.length; j++) {
             if (utensilsInFilter.includes(recipes[i].utensils[j]) === false) {
                 utensilsInFilter.push(recipes[i].utensils[j]);
                 let filterItem = document.createElement('span');
@@ -55,7 +55,7 @@ const fillTheFilters = (recipes) => {
     let utensilsInFilterDOM = Array.from(document.querySelectorAll(".searchbox__filters #utensils-filter .filter-items .filter-item"));
     
     //Pour les tags ingrédient
-    for(i=0; i<ingredientsInFilterDOM.length; i++) {
+    for(let i=0; i<ingredientsInFilterDOM.length; i++) {
         ingredientsInFilterDOM[i].addEventListener('click', function (e) {
             let tagDOM =  `.searchbox__tags .ingredient#tag-${i.toString()}`;
             //Si l'ingrédient n'est pas encore affiché dans les tags
@@ -65,7 +65,7 @@ const fillTheFilters = (recipes) => {
         })
     }
     //Pour les tags appareil
-    for(i=0; i<appliancesInFilterDOM.length; i++) {
+    for(let i=0; i<appliancesInFilterDOM.length; i++) {
         appliancesInFilterDOM[i].addEventListener('click', function(e) {
             let tagDOM =  `.searchbox__tags .appliance#tag-${i.toString()}`;
             if (!document.querySelector(tagDOM)) {
@@ -74,7 +74,7 @@ const fillTheFilters = (recipes) => {
         })
     }
     //Pour les tags ustensile
-    for(i=0; i<utensilsInFilterDOM.length; i++) {
+    for(let i=0; i<utensilsInFilterDOM.length; i++) {
         utensilsInFilterDOM[i].addEventListener('click', function(e) {
             let tagDOM =  `.searchbox__tags .utensil#tag-${i.toString()}`;
             if (!document.querySelector(tagDOM)) {

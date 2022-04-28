@@ -5,7 +5,7 @@ const matchList = document.getElementById('results');
 const displayResults = matches => {
     if(matches.length > 0) {
         const html = [];
-        for(i=0; i<matches.length; i++) {
+        for(let i=0; i<matches.length; i++) {
             html.push( `
             <div class="card">
                 <div class="card-inner bg-light-gray">

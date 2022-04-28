@@ -13,12 +13,12 @@ const dropdowns = () => {
     };
 
     //Pour chaque dropdown
-    for(i=0; i<dropdowns.length; i++) {
+    for(let i=0; i<dropdowns.length; i++) {
         let dropdownInput;
         let dropdownToggle;
         let currentDropdown = dropdowns[i];
         //Pour chaque tag html enfant de dropdown
-        for(j=0; j<currentDropdown.childNodes.length; j++) {
+        for(let j=0; j<currentDropdown.childNodes.length; j++) {
             //Si l'enfant à la classe 'filter-input'
             if(currentDropdown.childNodes[j].classList && currentDropdown.childNodes[j].classList.contains('filter-input')){
                 dropdownInput = currentDropdown.childNodes[j];

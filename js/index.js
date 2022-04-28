@@ -54,7 +54,7 @@ const search = (e) => {
     if( (searchbarInput.value.length > 2) ) {
         mainInput = searchbarInput.value;
         const regex = new RegExp(`${mainInput}`, 'gi');
-        for(i=0; i<recipes.length; i++) {
+        for(let i=0; i<recipes.length; i++) {
             let recipeIsMatching = false;
             //On recherche dans le nom de la recette,
             if(regex.test(recipes[i].name)) {
@@ -65,7 +65,7 @@ const search = (e) => {
                 recipeIsMatching = true;
             } 
             //et les ingrédients.
-            for(j=0; j<recipes[i].ingredients.length; j++) {
+            for(let j=0; j<recipes[i].ingredients.length; j++) {
                 if(regex.test(recipes[i].ingredients[j].ingredient)) {
                     recipeIsMatching = true;
                 }
