@@ -1,4 +1,4 @@
-import fillTheFilters from "../filters/fillTheFilters";
+import fillTheFilters from "../filters/fillTheFilters.js";
 
 //Filtrer les recettes avec les tags
 const filterWithTags = (recipesToFilter) => {

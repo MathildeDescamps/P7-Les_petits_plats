@@ -1,4 +1,4 @@
-import getFiltersElements from "./getFiltersElements";
+import getFiltersElements from "./getFiltersElements.js";
 
 const searchInIngredients = (input)  => {
     const regex = new RegExp(`${input}`, 'gi');

@@ -1,4 +1,4 @@
-import search from "../index";
+import search from "../index.js";
 
 //Supprimer un tag
 const deleteTag = () => {

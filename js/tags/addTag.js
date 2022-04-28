@@ -1,5 +1,5 @@
-import search from '../index';
-import deleteTag from './deleteTag';
+import search from '../index.js';
+import deleteTag from './deleteTag.js';
 
 //Les tags wrappers
 let ingredientTagsWrapper = document.querySelector('.searchbox__tags .ingredient-tags');

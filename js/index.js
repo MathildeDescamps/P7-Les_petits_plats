@@ -1,12 +1,12 @@
-import recipes from '../data/recipes.json';
-import dropdowns from './filters/dropdowns';
-import displayResults from './results/displayResults';
-import fillTheFilters from './filters/fillTheFilters';
-import getFiltersElements from './filters/getFiltersElements';
-import filterWithTags from './tags/filterWithTags';
-import searchInIngredients from './filters/searchInIngredients';
-import searchInAppliances from './filters/searchInAppliances';
-import searchInUtensils from './filters/searchInUtensils';
+import recipes from '../data/recipes.js';
+import dropdowns from './filters/dropdowns.js';
+import displayResults from './results/displayResults.js';
+import fillTheFilters from './filters/fillTheFilters.js';
+import getFiltersElements from './filters/getFiltersElements.js';
+import filterWithTags from './tags/filterWithTags.js';
+import searchInIngredients from './filters/searchInIngredients.js';
+import searchInAppliances from './filters/searchInAppliances.js';
+import searchInUtensils from './filters/searchInUtensils.js';
 
 ////        DOM     ////
 //Tous les inputs

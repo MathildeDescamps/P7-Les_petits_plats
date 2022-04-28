@@ -1,4 +1,4 @@
-import addTag from "../tags/addTag";
+import addTag from "../tags/addTag.js";
 
 //FONCTION : On met tous les ingrédients/appareils/ustensiles dans les filtres
 const fillTheFilters = (recipes) => {
