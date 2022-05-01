@@ -27,7 +27,7 @@ let recipesToDisplay;
 fillTheFilters(recipes);
 getFiltersElements();
 let matches = [];
-displayResults(matches);
+displayResults(recipes);
 //Recherche dans les ingrédients/appareils/ustensils :
 ingredientsFilterInput.addEventListener("input", function(e) {
     document.querySelector(".searchbox__filters #ingredients-filter .filter-items").style.display = "flex";
@@ -103,7 +103,7 @@ const search = (e) => {
     if ( ( (searchbarInput.value === '') || (searchbarInput.value.length < 3 ) ) && tagsAreUsed === false ) {
         fillTheFilters(recipes);
         let matches = [];
-        displayResults(matches);
+        displayResults(recipes);
         noResultText.innerHTML = "";
     }
 

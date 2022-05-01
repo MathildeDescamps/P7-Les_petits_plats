@@ -63,6 +63,8 @@
   height: 70px;
   padding-inline: 15px;
   border-radius: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .container .searchbox #searchRecipes #search:focus, .container .searchbox #searchRecipes #search:focus-visible {
@@ -75,7 +77,7 @@
 .container .searchbox #searchRecipes .search-icon {
   position: absolute;
   top: 25px;
-  right: 0;
+  right: 15px;
 }
 
 .container .searchbox .searchbox__tags {
@@ -231,10 +233,14 @@
   display: -ms-flexbox;
   display: flex;
   min-height: 100%;
-  margin-inline: -20px;
+  margin-left: -20px;
+  margin-right: -30px;
   margin-top: 25px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .container .searchbox .searchbox__results-container .card {
